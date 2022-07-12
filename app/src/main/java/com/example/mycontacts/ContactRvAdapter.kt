@@ -6,32 +6,45 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mycontacts.databinding.ContactslistitemsBinding
+import com.squareup.picasso.Picasso
 
 class ContactRvAdapter(var contactsList:List<Contacts>):
     RecyclerView.Adapter<ContactViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-       var itemView = LayoutInflater.from(parent.context)
-           .inflate(R.layout.contactslistitems,parent, false)
-        return ContactViewHolder(itemView)
+       var binding =ContactslistitemsBinding
+           .inflate(LayoutInflater.from(parent.context),parent,false)
+        return ContactViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         var currentContact = contactsList.get(position)
-        holder.tvEmail.text = currentContact.email
-        holder.tvPhone.text = currentContact.phone
-        holder.tvName.text = currentContact.name
-        holder.tvAddress.text = currentContact.address
+        with(holder.binding){
+            tvEmail.text = currentContact.email
+            tvPhone.text = currentContact.phone
+            tvName.text = currentContact.name
+            tvAddress.text = currentContact.address
+
+            Picasso.get()
+                .load(currentContact.image)
+//                .error()
+                .resize(300,300)
+                .centerCrop()
+//                .placeholder(R.drawable.ic_baseline_person_24)
+                .into(holder.binding.imgContact)
+        }
+
+
 
     }
 
     override fun getItemCount(): Int {
         return contactsList.size
     }
+
 }
-class ContactViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    var tvName =itemView.findViewById<TextView>(R.id.tvName)
-    var tvPhone =itemView.findViewById<TextView>(R.id.tvPhone)
-    var tvEmail =itemView.findViewById<TextView>(R.id.tvEmail)
-    var tvAddress =itemView.findViewById<TextView>(R.id.tvAddress)
-    var tvContacts =itemView.findViewById<ImageView>(R.id.imgContact)
+class ContactViewHolder( var binding:ContactslistitemsBinding)
+    : RecyclerView.ViewHolder(binding.root){
+
 }
