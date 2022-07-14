@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyContacts</string>
+    <string name="textview">TextView</string>
+    <string name="john_doe">John Doe</string>
+    <string name="_0717867180">0717867180</string>
+    <string name="joe_gmail_com">joe@gmail.com</string>
+    <string name="_616_korongo">616 Korongo</string>
 </resources>
